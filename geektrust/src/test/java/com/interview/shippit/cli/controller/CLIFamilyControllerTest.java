@@ -64,7 +64,7 @@ public class CLIFamilyControllerTest {
             .thenReturn("NONE");
 
         CLIFamilyController cli = new CLIFamilyController(adapter);
-        String response = cli.getRelationship("Resmus", "Siblings");
+        String response = cli.getRelationship("Remus", "Siblings");
         assertEquals("NONE", response);
     }
 

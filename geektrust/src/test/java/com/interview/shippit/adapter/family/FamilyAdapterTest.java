@@ -19,6 +19,7 @@ public class FamilyAdapterTest {
     private final InMemoryFamilyMemberRepository repository = new InMemoryFamilyMemberRepository();
     private final AddFamilyService familyService = new AddFamilyMemberUseCase(repository);
     private final GetRelationshipService relationshipService = new GetRelationshipUseCase(repository);
+    
     @BeforeEach
     public void setUp() {
         InitialFamilyFixture.applyFixture(repository);
