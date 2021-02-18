@@ -2,6 +2,7 @@ package com.interview.shippit.family.usecase;
 
 import com.interview.shippit.family.entity.FamilyMember;
 import com.interview.shippit.family.usecase.exception.PersonNotFoundException;
+import com.interview.shippit.family.usecase.exception.FamilyRelationNotFoundException;
 import com.interview.shippit.family.usecase.port.FamilyMemberRepository;
 import com.interview.shippit.family.usecase.port.GetRelationshipService;
 
@@ -18,7 +19,7 @@ public class GetRelationshipUseCase implements GetRelationshipService {
 
     @Override
     public List<FamilyMember> getRelationshipToFamilyMember(String name, String relationship)
-            throws PersonNotFoundException {
+            throws PersonNotFoundException, FamilyRelationNotFoundException {
         Optional<FamilyMember> optional = this.repository.findByName(name);
 
         if (!optional.isPresent()) {
@@ -34,9 +35,10 @@ public class GetRelationshipUseCase implements GetRelationshipService {
             case "Maternal-Aunt": return this.repository.getMaternalAunt(member);
             case "Sister-in-Law": return this.repository.getSisterInLaw(member);
             case "Brother-in-Law": return this.repository.getBrotherInLaw(member);
+            case "Siblings": return this.repository.getSibling(member);
             case "Son": return this.repository.getSon(member);
             case "Daughter": return this.repository.getDaughter(member);
-            default: throw new PersonNotFoundException();
+            default: throw new FamilyRelationNotFoundException();
         }
 
     }

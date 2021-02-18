@@ -28,7 +28,7 @@ public class AddFamilyMemberUseCase implements AddFamilyService {
         }
 
         if (!mother.get().isGenderFemale()) {
-            throw new IllegalArgumentException("Mother needs to be female");
+            throw new IllegalArgumentException("Mother needs to be identified as Female");
         }
 
         Optional<FamilyMember> optional = repository.findByName(name);
@@ -37,9 +37,8 @@ public class AddFamilyMemberUseCase implements AddFamilyService {
             throw new NameAlreadyExistsException();
         }
 
-        Gender gen = Gender.getGenderbyName(gender);
-
-        return repository.createFamilyMember(name, gen, mother.get());
+        return repository.createFamilyMember(
+            name, Gender.getGenderbyName(gender), mother.get());
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.interview.shippit.family.entity.enums.Gender;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class FamilyMember {
 
@@ -22,6 +23,10 @@ public class FamilyMember {
         this.gender = gender;
         this.father = mother.getPartner();
         this.mother = mother;
+        this.mother.addChild(this);
+        if (Optional.ofNullable(this.father).isPresent()) {
+            this.father.addChild(this);
+        }
     }
 
     public FamilyMember(final String name, final Gender gender) {
@@ -29,10 +34,6 @@ public class FamilyMember {
         this.gender = gender;
         this.father = null;
         this.mother = null;
-    }
-
-    public static FamilyMemberBuilder builder() {
-        return new FamilyMemberBuilder();
     }
 
     public List<FamilyMember> getChildren() {
@@ -80,9 +81,7 @@ public class FamilyMember {
         return this.father;
     }
 
-    public static class FamilyMemberBuilder {
-        private List<FamilyMember> children = new ArrayList<>();
-        FamilyMemberBuilder() {
-        }
+    public Boolean hasPartner() {
+        return this.partner != null;
     }
 }

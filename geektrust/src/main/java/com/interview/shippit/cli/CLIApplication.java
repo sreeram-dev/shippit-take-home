@@ -10,12 +10,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class CLIApplication {
 
-    // TODO: replace with a configuration
+    // TODO: replace with a configuration as per clean architecture
     private static final InMemoryFamilyMemberRepository repository = new InMemoryFamilyMemberRepository();
 
     private static final FamilyAdapter adapter = new FamilyAdapter(
@@ -43,9 +42,9 @@ public class CLIApplication {
     }
 
     private static void processLine(String line) {
-        System.out.println("Command: " + line);
+        //System.out.println("Command: " + line);
         String[] command = line.split(" ");
-        Arrays.stream(command).forEach(System.out::println);
+        //Arrays.stream(command).forEach(System.out::println);
 
         if (command.length < 2) {
             throw new IllegalArgumentException("Invalid File");

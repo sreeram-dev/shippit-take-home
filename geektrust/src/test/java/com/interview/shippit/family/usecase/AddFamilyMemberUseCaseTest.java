@@ -137,5 +137,4 @@ public class AddFamilyMemberUseCaseTest {
         assertNull(ted.getMother());
         assertNull(ted.getFather());
     }
-
 }

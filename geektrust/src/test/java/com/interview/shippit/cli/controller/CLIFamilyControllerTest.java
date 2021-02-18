@@ -20,8 +20,6 @@ public class CLIFamilyControllerTest {
 
         when(adapter.addFamilyMember("Bella", "Female", "Ted"))
             .thenReturn("CHILD_ADDITION_FAILED");
-        //doReturn("CHILD_ADDITION_FAILED").when(controller.addFamilyMember(
-        //    "Bella", "Female", "Ted"));
 
         CLIFamilyController cli = new CLIFamilyController(adapter);
         String response = cli.addFamilyMember("Ted", "Bella", "Female");

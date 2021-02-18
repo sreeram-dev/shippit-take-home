@@ -2,6 +2,7 @@ package com.interview.shippit.adapter.family;
 
 
 import com.interview.shippit.family.entity.FamilyMember;
+import com.interview.shippit.family.usecase.exception.FamilyRelationNotFoundException;
 import com.interview.shippit.family.usecase.exception.NameAlreadyExistsException;
 import com.interview.shippit.family.usecase.exception.PersonNotFoundException;
 import com.interview.shippit.family.usecase.port.AddFamilyService;
@@ -45,10 +46,13 @@ public class FamilyAdapter {
 
             return members.stream()
                     .map(FamilyMember::getName)
-                    .reduce(" ", String::concat);
+                    .reduce(" ", String::concat)
+                    .trim();
 
         } catch (PersonNotFoundException ex) {
             return ex.getMessage();
+        } catch (FamilyRelationNotFoundException ex) {
+            return "NONE";
         }
     }
 
