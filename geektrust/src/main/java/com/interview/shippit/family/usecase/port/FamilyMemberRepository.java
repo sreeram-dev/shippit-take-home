@@ -1,4 +1,4 @@
-package com.interview.shippit.family.usecase.repository;
+package com.interview.shippit.family.usecase.port;
 
 import com.interview.shippit.family.entity.FamilyMember;
 import com.interview.shippit.family.entity.enums.Gender;
@@ -11,7 +11,7 @@ import java.util.Optional;
  * DAO for accessing family member and their relations
  */
 public interface FamilyMemberRepository {
-    
+
     public FamilyMember createFamilyMember(String name, Gender gender, FamilyMember mother);
 
     public FamilyMember createNoParentFamilyMember(String name, Gender gender);

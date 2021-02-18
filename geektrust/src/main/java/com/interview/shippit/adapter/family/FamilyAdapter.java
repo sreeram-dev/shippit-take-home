@@ -1,26 +1,30 @@
-package com.interview.shippit.controller;
+package com.interview.shippit.adapter.family;
 
 
 import com.interview.shippit.family.entity.FamilyMember;
-import com.interview.shippit.family.usecase.AddFamilyMember;
-import com.interview.shippit.family.usecase.GetRelationship;
 import com.interview.shippit.family.usecase.exception.NameAlreadyExistsException;
 import com.interview.shippit.family.usecase.exception.PersonNotFoundException;
+import com.interview.shippit.family.usecase.port.AddFamilyService;
+import com.interview.shippit.family.usecase.port.GetRelationshipService;
 
 import java.util.List;
 
-public class FamilyController {
-    private final AddFamilyMember addFamilyMember;
-    private final GetRelationship getRelationship;
+/**
+ * Output port for the familymember usecases
+ */
+public class FamilyAdapter {
 
-    public FamilyController(final AddFamilyMember addFamilyMember, final GetRelationship getRelationship) {
-        this.addFamilyMember = addFamilyMember;
-        this.getRelationship = getRelationship;
+    private final AddFamilyService familyService;
+    private final GetRelationshipService relationshipService;
+
+    public FamilyAdapter(final AddFamilyService familyService, final GetRelationshipService relationshipService) {
+        this.familyService = familyService;
+        this.relationshipService = relationshipService;
     }
 
     public String addFamilyMember(final String name, final String gender, final String motherName) {
         try {
-            this.addFamilyMember.create(name, gender, motherName);
+            this.familyService.create(name, gender, motherName);
         } catch (PersonNotFoundException ex) {
             return "PERSON_NOT_FOUND";
         } catch (NameAlreadyExistsException | IllegalArgumentException ex) {
@@ -32,7 +36,9 @@ public class FamilyController {
 
     public String getRelationship(final String name, final String relationship) {
         try {
-            List<FamilyMember> members = this.getRelationship.getRelationshipToFamilyMember(name, relationship);
+            List<FamilyMember> members = this.relationshipService
+                .getRelationshipToFamilyMember(name, relationship);
+
             if (members.isEmpty()) {
                 return "NONE";
             }
@@ -47,10 +53,10 @@ public class FamilyController {
     }
 
     public void createNoParentFamilyMember(final String name, final String gender) {
-        this.addFamilyMember.createNoParentFamilyMember(name, gender);
+        this.familyService.createNoParentFamilyMember(name, gender);
     }
 
     public void addIndividualPartner(final String name, final String gender, final String partnerName) {
-        this.addFamilyMember.createIndividualPartner(name, gender, partnerName);
+        this.familyService.createIndividualPartner(name, gender, partnerName);
     }
 }

@@ -3,12 +3,15 @@ package com.interview.shippit.db;
 import com.interview.shippit.family.entity.FamilyMember;
 import com.interview.shippit.family.entity.enums.Gender;
 import com.interview.shippit.family.usecase.exception.PersonNotFoundException;
-import com.interview.shippit.family.usecase.repository.FamilyMemberRepository;
+import com.interview.shippit.family.usecase.port.FamilyMemberRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Input port for the family member usecases
+ */
 public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
 
     private final Map<String, FamilyMember> map = new HashMap<>();
@@ -149,5 +152,9 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
     // helper function to evaluate the solution
     public List<String> getAllMembersStoredInMemory() {
         return map.values().stream().map(FamilyMember::getName).collect(Collectors.toList());
+    }
+
+    public void clearData() {
+        map.clear();
     }
 }

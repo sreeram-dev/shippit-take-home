@@ -31,6 +31,10 @@ public class FamilyMember {
         this.mother = null;
     }
 
+    public static FamilyMemberBuilder builder() {
+        return new FamilyMemberBuilder();
+    }
+
     public List<FamilyMember> getChildren() {
         return this.children;
     }
@@ -74,5 +78,11 @@ public class FamilyMember {
 
     public FamilyMember getFather() {
         return this.father;
+    }
+
+    public static class FamilyMemberBuilder {
+        private List<FamilyMember> children = new ArrayList<>();
+        FamilyMemberBuilder() {
+        }
     }
 }

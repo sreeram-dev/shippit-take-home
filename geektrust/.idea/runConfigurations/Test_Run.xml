@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Sample Executable Run" type="Application" factoryName="Application">
+  <configuration default="false" name="Test Run" type="Application" factoryName="Application">
     <option name="ALTERNATIVE_JRE_PATH" value="SDKMAN JAVA" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-    <option name="MAIN_CLASS_NAME" value="com.interview.shippit.api.cli.CLIDriver" />
+    <option name="MAIN_CLASS_NAME" value="com.interview.shippit.cli.CLIApplication" />
     <module name="geektrust.main" />
     <option name="PROGRAM_PARAMETERS" value="src/test/resources/simple_testcase_2.txt" />
     <method v="2">

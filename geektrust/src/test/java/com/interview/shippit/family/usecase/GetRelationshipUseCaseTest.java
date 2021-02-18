@@ -1,4 +1,4 @@
 package com.interview.shippit.family.usecase;
 
-public class AddFamilyMemberTest {
+public class GetRelationshipUseCaseTest {
 }

@@ -1,10 +1,10 @@
-package com.interview.shippit.api.cli;
+package com.interview.shippit.cli;
 
-import com.interview.shippit.api.cli.controller.CLIFamilyController;
-import com.interview.shippit.controller.FamilyController;
+import com.interview.shippit.adapter.family.FamilyAdapter;
 import com.interview.shippit.db.InMemoryFamilyMemberRepository;
-import com.interview.shippit.family.usecase.AddFamilyMember;
-import com.interview.shippit.family.usecase.GetRelationship;
+import com.interview.shippit.cli.controller.CLIFamilyController;
+import com.interview.shippit.family.usecase.AddFamilyMemberUseCase;
+import com.interview.shippit.family.usecase.GetRelationshipUseCase;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,14 +13,15 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class CLIDriver {
+public class CLIApplication {
 
+    // TODO: replace with a configuration
     private static final InMemoryFamilyMemberRepository repository = new InMemoryFamilyMemberRepository();
 
-    private static final FamilyController familyController = new FamilyController(
-            new AddFamilyMember(repository), new GetRelationship(repository));
+    private static final FamilyAdapter adapter = new FamilyAdapter(
+            new AddFamilyMemberUseCase(repository), new GetRelationshipUseCase(repository));
 
-    private static final CLIFamilyController controller  = new CLIFamilyController(familyController);
+    private static final CLIFamilyController controller  = new CLIFamilyController(adapter);
 
     public static void main(String[] args) {
         if (args.length != 1) {
@@ -31,7 +32,7 @@ public class CLIDriver {
         loadInitialData(controller);
 
         try (Stream<String> stream = Files.lines(Paths.get(args[0]))){
-            stream.forEach(CLIDriver::processLine);
+            stream.forEach(CLIApplication::processLine);
         } catch (FileNotFoundException ex) {
             System.out.println("File Not found");
         } catch (IOException e) {
@@ -95,7 +96,7 @@ public class CLIDriver {
         controller.addFamilyMember("Rose", "Draco", "Male");
         controller.addFamilyMember("Rose", "Aster", "Female");
 
-        // ginerva family
+        // Ginerva family
         controller.addFamilyMember("Ginerva", "James", "Male");
         controller.addFamilyMember("Ginerva", "Albus", "Male");
         controller.addFamilyMember("Ginerva", "Lily", "Female");

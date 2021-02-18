@@ -2,19 +2,21 @@ package com.interview.shippit.family.usecase;
 
 import com.interview.shippit.family.entity.FamilyMember;
 import com.interview.shippit.family.usecase.exception.PersonNotFoundException;
-import com.interview.shippit.family.usecase.repository.FamilyMemberRepository;
+import com.interview.shippit.family.usecase.port.FamilyMemberRepository;
+import com.interview.shippit.family.usecase.port.GetRelationshipService;
 
 import java.util.List;
 import java.util.Optional;
 
-public class GetRelationship {
+public class GetRelationshipUseCase implements GetRelationshipService {
 
     private final FamilyMemberRepository repository;
 
-    public GetRelationship(final FamilyMemberRepository repository) {
+    public GetRelationshipUseCase(final FamilyMemberRepository repository) {
         this.repository = repository;
     }
 
+    @Override
     public List<FamilyMember> getRelationshipToFamilyMember(String name, String relationship)
             throws PersonNotFoundException {
         Optional<FamilyMember> optional = this.repository.findByName(name);

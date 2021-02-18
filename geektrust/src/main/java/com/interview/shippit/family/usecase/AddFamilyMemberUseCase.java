@@ -4,18 +4,20 @@ import com.interview.shippit.family.entity.FamilyMember;
 import com.interview.shippit.family.entity.enums.Gender;
 import com.interview.shippit.family.usecase.exception.NameAlreadyExistsException;
 import com.interview.shippit.family.usecase.exception.PersonNotFoundException;
-import com.interview.shippit.family.usecase.repository.FamilyMemberRepository;
+import com.interview.shippit.family.usecase.port.AddFamilyService;
+import com.interview.shippit.family.usecase.port.FamilyMemberRepository;
 
 import java.util.Optional;
 
-public class AddFamilyMember {
+public class AddFamilyMemberUseCase implements AddFamilyService {
 
     private final FamilyMemberRepository repository;
 
-    public AddFamilyMember(final FamilyMemberRepository repository) {
+    public AddFamilyMemberUseCase(final FamilyMemberRepository repository) {
         this.repository = repository;
     }
 
+    @Override
     public FamilyMember create(final String name, final String gender, final String motherName)
             throws PersonNotFoundException, NameAlreadyExistsException {
 
@@ -40,6 +42,7 @@ public class AddFamilyMember {
         return repository.createFamilyMember(name, gen, mother.get());
     }
 
+    @Override
     public FamilyMember createNoParentFamilyMember(final String name, final String gender) {
 
         Optional<FamilyMember> optional = repository.findByName(name);
@@ -51,6 +54,7 @@ public class AddFamilyMember {
         return this.repository.createNoParentFamilyMember(name, Gender.getGenderbyName(gender));
     }
 
+    @Override
     public FamilyMember createIndividualPartner(
             final String name,
             final String gender,
