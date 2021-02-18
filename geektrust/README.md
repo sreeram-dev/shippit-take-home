@@ -2,9 +2,10 @@ GeekTrust Challenge
 ============================
 
 [![Java CI with Gradle](https://github.com/ShippitRecruitment/backend-challenge_sreeram-boyapati/actions/workflows/gradle.yml/badge.svg?branch=main)](https://github.com/ShippitRecruitment/backend-challenge_sreeram-boyapati/actions/workflows/gradle.yml)
+![Test Coverage](https://github.com/ShippitRecruitment/backend-challenge_sreeram-boyapati/blob/main/.github/badges/jacoco.svg)
 
-Java Version: 8  
-Recommended IDE:  IntelliJ 2020.3  
+Java Version: 8
+Recommended IDE:  IntelliJ 2020.3
 Gradle Version: 6.7
 
 
