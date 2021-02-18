@@ -15,14 +15,9 @@ The jar has all the dependencies and it is in `build/libs/geektrust.jar`
 
 
 ## Run Configurations
-Please use the `gradle run` configuration in the `.idea` directory to test run
+Please use the Run configurations in the `.idea` directory to test run
 the application with test files from the `src/test/resources` java.
 
-
-## Gradle Wrapper Based Testing
-For standalone testing use `./gradlew run`. <br\>
-Here is an example command using test resources:
-`./gradlew run --args="src/test/resources/simple_testcase_1.txt"`
 
 ## Unit and Integration Tests
 Please run  the following command to run the tests
