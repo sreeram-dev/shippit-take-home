@@ -2,7 +2,10 @@ package com.interview.shippit.cli.controller;
 
 import com.interview.shippit.adapter.family.FamilyAdapter;
 
-
+/**
+ * Controller provides data to the CLI Application in the format it requires.
+ * Converts DTO objects to rest, json or flatline formats.
+ */
 public class CLIFamilyController {
 
     private final FamilyAdapter adapter;

@@ -29,6 +29,8 @@ public class FamilyMember {
         this.father = mother.getPartner();
         this.mother = mother;
         this.mother.addChild(this);
+
+        // Mother can be a single parent
         if (Optional.ofNullable(this.father).isPresent()) {
             this.father.addChild(this);
         }

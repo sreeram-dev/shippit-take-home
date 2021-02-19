@@ -13,6 +13,10 @@ import java.util.stream.Collectors;
 
 /**
  * Output port for the familymember usecases
+ * Data Transfer Objects can be defined here so that persistence, network layers
+ * need not know the domain entity structure
+ *
+ * This layer is mostly concerned with application rules.
  */
 public class FamilyAdapter {
 

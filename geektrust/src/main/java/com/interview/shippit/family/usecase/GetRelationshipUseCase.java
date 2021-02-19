@@ -6,12 +6,18 @@ import com.interview.shippit.family.usecase.exception.FamilyRelationNotFoundExce
 import com.interview.shippit.family.usecase.port.FamilyMemberRepository;
 import com.interview.shippit.family.usecase.port.GetRelationshipService;
 
-import javax.sound.midi.SysexMessage;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+/**
+ * GetRelationshipUseCase implements the business rules or processes the relations
+ * This particular usecase contains the business rules to support 'GET_RELATIONSHIP'
+ * command
+ *
+ * Due to nature of query and traversal differing by how they are stored, I have encapsulated
+ * the implementation due to the database layer.
+ * OnDisk compute is faster than fetching and computing the results.
+ */
 public class GetRelationshipUseCase implements GetRelationshipService {
 
     private final FamilyMemberRepository repository;

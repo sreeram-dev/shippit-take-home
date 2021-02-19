@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * DAO for accessing family member and their relations
+ * DAO for accessing family member and their relations, any persistence layer has to implement the repository
+ * to persist data and provide support functions for business rules (get_relationship and add_child)
+ *
+ * Each getRelation Query has to be implemented by persistence layer on how to fetch the
  */
 public interface FamilyMemberRepository {
 

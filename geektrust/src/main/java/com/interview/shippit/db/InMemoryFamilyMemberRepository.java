@@ -10,11 +10,15 @@ import java.util.stream.Stream;
 
 /**
  * Input port for the family member usecases
+ * Uses hashmap as the storage engine to store data and LinkedHashSet to maintain order of insertion.
+ * Implements the repository interface defined in the domain usecases (interactors)
  */
 public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
 
+    // Persist data in a hashmap
     private final Map<String, FamilyMember> map = new HashMap<>();
 
+    // maintain the order of insertion into the hashmap for sorting purposes
     private final Set<String> order = new LinkedHashSet<>();
 
     @Override

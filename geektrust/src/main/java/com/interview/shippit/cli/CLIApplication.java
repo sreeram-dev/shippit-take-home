@@ -6,12 +6,17 @@ import com.interview.shippit.cli.controller.CLIFamilyController;
 import com.interview.shippit.family.usecase.AddFamilyMemberUseCase;
 import com.interview.shippit.family.usecase.GetRelationshipUseCase;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+/**
+ * Driver application that prints successful command execution results to stdout
+ * Failures/Exceptions to stderr.
+ *
+ * Stops execution on an invalid command.
+ */
 public class CLIApplication {
 
     // TODO: replace with a configuration as per clean architecture
@@ -40,11 +45,15 @@ public class CLIApplication {
         }
     }
 
+    /**
+     * Processes each command and prints to stdout on non-failure cases
+     * @param line
+     */
     private static void processLine(String line) {
         String[] command = line.split(" ");
 
         if (command.length < 2) {
-            throw new IllegalArgumentException("Invalid File");
+            throw new IllegalArgumentException("Invalid Command found in File");
         }
 
         if (command[0].equals("ADD_CHILD")) {

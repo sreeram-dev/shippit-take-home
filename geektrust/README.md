@@ -4,10 +4,9 @@ GeekTrust Challenge
 [![Java CI with Gradle](https://github.com/ShippitRecruitment/backend-challenge_sreeram-boyapati/actions/workflows/gradle.yml/badge.svg?branch=main)](https://github.com/ShippitRecruitment/backend-challenge_sreeram-boyapati/actions/workflows/gradle.yml)
 ![Test Coverage](https://github.com/ShippitRecruitment/backend-challenge_sreeram-boyapati/blob/main/.github/badges/jacoco.svg)
 
-Java Version: 8
-Recommended IDE:  IntelliJ 2020.3
+Java Version: 8 <br/>
+Recommended IDE:  IntelliJ 2020.3  <br/>
 Gradle Version: 6.7
-
 
 ## Installation
 
@@ -31,3 +30,9 @@ Tests are located in the `src/test/java/` folder and follow the layout guideline
 Please use the testing options specified in https://docs.gradle.org/current/userguide/java_testing.html#full_qualified_name_pattern
 to run individual tests
 
+## Project Structure
+The project follows the clean architecture paradigm - <br/>
+1. Domain and Usecases (Interactors) are listed in `com.interview.shippit.family` package
+2. Adapters (Interactor Adapter) implement interfaces as defined in usecases are listed in `com.interview.shippit.family`.
+3. HashMap based DB persists data during application run, implements the repository interface defined in the usecases. Package is `com.interview.shippit.db`
+4. CLI Functionality plugs into the adapter and Application delegates calls to the controller. Package is `com.interview.shippit.cli`.

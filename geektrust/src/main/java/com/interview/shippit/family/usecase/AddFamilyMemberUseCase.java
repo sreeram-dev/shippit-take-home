@@ -9,6 +9,13 @@ import com.interview.shippit.family.usecase.port.FamilyMemberRepository;
 
 import java.util.Optional;
 
+/**
+ * Interactors or Usecases implement business rules of the product
+ *
+ * AddFamilyMember creates the root parent (no parents), children and
+ * partners to the children
+ *
+ */
 public class AddFamilyMemberUseCase implements AddFamilyService {
 
     private final FamilyMemberRepository repository;
