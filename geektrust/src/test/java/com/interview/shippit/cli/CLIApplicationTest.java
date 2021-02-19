@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This is an integration test as we are loading the test
@@ -35,30 +35,56 @@ public class CLIApplicationTest {
     }
 
     @Test
-    public void testSimpleTestCase1_PersonNotFound() {
+    public void testSimpleTestCase_PersonNotFound() {
         CLIApplication.main(new String[]{"src/test/resources/simple_testcase_1.txt"});
         assertEquals("PERSON_NOT_FOUND\n" + "PERSON_NOT_FOUND\n", out.toString());
     }
 
     @Test
-    public void testSimpleTestCase2_ChildAdditionFailed() {
+    public void testSimpleTestCase_ChildAdditionFailed() {
         CLIApplication.main(new String[]{"src/test/resources/simple_testcase_2.txt"});
         assertEquals("CHILD_ADDITION_FAILED\n" + "NONE\n", out.toString());
     }
 
     @Test
-    public void testSimpleTestCase3_RelationshipDoesNotExist() {
+    public void testSimpleTestCase_PartnerRelationships() {
         CLIApplication.main(new String[]{"src/test/resources/simple_testcase_3.txt"});
-        assertEquals("NONE\n", out.toString());
+        assertEquals("Darcy Alice\n" +
+            "Audrey Helen Flora\n", out.toString());
     }
 
     @Test
-    public void testSimpleTestCase4_AddChildAndGetRelationship() {
+    public void testSimpleTestCase_AddChildAndGetRelationship() {
         CLIApplication.main(new String[]{"src/test/resources/simple_testcase_4.txt"});
-        
+
         assertEquals("CHILD_ADDED\n" +
             "Dominique Minerva\n" +
             "Dominique Louis Victoire\n" +
             "Dominique Victoire Minerva\n", out.toString());
+    }
+
+    @Test
+    public void testInvalidTestCase_typoInCommand() {
+       CLIApplication.main(new String[]{"src/test/resources/invalid_file_testcase.txt"});
+       // all output thrown to err
+       assertEquals("ERROR: Invalid Command found in File\n", err.toString());
+       // no output written to stdout
+       assertTrue(out.size() == 0);
+    }
+
+    @Test
+    public void testInvalidTestCase_noFileFound() {
+        CLIApplication.main(new String[]{"src/test/resources/invalid_file.txt"});
+        assertEquals("ERROR: File not found\n", err.toString());
+        // no output written to stdout
+        assertTrue(out.size() == 0);
+    }
+
+    @Test
+    public void testInvalidTestCase_noFileParamater() {
+        CLIApplication.main(new String[]{});
+        assertEquals("ERROR: Requires file parameter\n", err.toString());
+        // no output written to stdout
+        assertTrue(out.size() == 0);
     }
 }

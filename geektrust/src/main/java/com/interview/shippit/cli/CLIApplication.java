@@ -24,7 +24,7 @@ public class CLIApplication {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("Requires file parameter");
+            System.err.println("ERROR: Requires file parameter");
             return;
         }
 
@@ -33,12 +33,10 @@ public class CLIApplication {
 
         try (Stream<String> stream = Files.lines(Paths.get(args[0]))){
             stream.forEach(CLIApplication::processLine);
-        } catch (FileNotFoundException ex) {
-            System.out.println("File Not found");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch(IllegalArgumentException ex) {
-            System.out.println("Invalid file");
+        } catch (IOException ex) {
+            System.err.println("ERROR: File not found");
+        } catch (IllegalArgumentException ex) {
+            System.err.println("ERROR: " + ex.getMessage());
         }
     }
 
@@ -56,7 +54,7 @@ public class CLIApplication {
             String output = controller.getRelationship(command[1], command[2]);
             System.out.println(output);
         } else {
-            throw new IllegalArgumentException("Invalid File");
+            throw new IllegalArgumentException("Invalid Command found in File");
         }
     }
 
@@ -98,12 +96,11 @@ public class CLIApplication {
         controller.addFamilyMember("Ginerva", "James", "Male");
         controller.addFamilyMember("Ginerva", "Albus", "Male");
         controller.addFamilyMember("Ginerva", "Lily", "Female");
-        controller.addIndividualPartner("Alice", "Female", "Albus");
         controller.addIndividualPartner("Darcy", "Female", "James");
+        controller.addIndividualPartner("Alice", "Female", "Albus");
         controller.addFamilyMember("Darcy", "William", "Male");
         controller.addFamilyMember("Alice", "Ron", "Male");
         controller.addFamilyMember("Alice", "Ginny", "Female");
-
         //repository.getAllMembersStoredInMemory().forEach(System.out::println);
     }
 }

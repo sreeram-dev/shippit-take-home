@@ -29,6 +29,11 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
 
     @Override
     public List<FamilyMember> getSibling(FamilyMember member) {
+
+        if (member == null) {
+            return new ArrayList<>();
+        }
+
         FamilyMember mother = member.getMother();
         if (mother == null) {
             return new ArrayList<>();
@@ -103,11 +108,16 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
     public List<FamilyMember> getSisterInLaw(FamilyMember member) {
         FamilyMember partner = member.getPartner();
 
-        List<FamilyMember> partnerSiblings = getSibling(partner)
-                .stream()
-                .filter(mem -> mem.isGenderFemale() && !mem.getName().equals(partner.getName()))
-                .collect(Collectors.toList());
+        List<FamilyMember> partnerSiblings;
 
+        if (partner == null) {
+            partnerSiblings = getSibling(partner)
+                .stream()
+                .filter(FamilyMember::isGenderFemale)
+                .collect(Collectors.toList());
+        } else {
+            partnerSiblings = new ArrayList<>();
+        }
 
         List<FamilyMember> siblingPartners = getSibling(member)
                 .stream()
@@ -120,7 +130,6 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
-
         return result;
     }
 
@@ -128,14 +137,20 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
     public List<FamilyMember> getBrotherInLaw(FamilyMember member) {
         FamilyMember partner = member.getPartner();
 
-        List<FamilyMember> partnerSiblings = getSibling(partner)
+        List<FamilyMember> partnerSiblings;
+
+        if (partner == null) {
+            partnerSiblings = new ArrayList<>();
+        } else {
+            partnerSiblings = getSibling(partner)
                 .stream()
-                .filter(mem -> mem.isGenderMale() && !mem.getName().equals(partner.getName()))
+                .filter(FamilyMember::isGenderMale)
                 .collect(Collectors.toList());
+        }
 
         List<FamilyMember> siblingPartners = getSibling(member)
                 .stream()
-                .filter(mem -> mem.isGenderFemale() && !mem.getName().equals(partner.getName()))
+                .filter(FamilyMember::isGenderFemale)
                 .filter(FamilyMember::hasPartner)
                 .map(FamilyMember::getPartner)
                 .collect(Collectors.toList());

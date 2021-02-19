@@ -44,10 +44,10 @@ public class GetRelationshipUseCase implements GetRelationshipService {
             case "Maternal-Aunt":
                 result = this.repository.getMaternalAunt(member);
                 break;
-            case "Sister-in-Law":
+            case "Sister-In-Law":
                 result = this.repository.getSisterInLaw(member);
                 break;
-            case "Brother-in-Law":
+            case "Brother-In-Law":
                 result = this.repository.getBrotherInLaw(member);
                 break;
             case "Siblings":

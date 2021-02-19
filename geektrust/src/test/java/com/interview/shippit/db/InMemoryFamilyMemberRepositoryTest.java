@@ -108,6 +108,23 @@ public class InMemoryFamilyMemberRepositoryTest {
     }
 
     @Test
+    public void testGetSisterInLaw_NoPartnerRelationship() {
+        Optional<FamilyMember> member = repository.findByName("Lily");
+        assertTrue(member.isPresent());
+        FamilyMember lily = member.get();
+
+        List<FamilyMember> sisterInLaws = repository.getSisterInLaw(lily);
+        assertFalse(sisterInLaws.isEmpty());
+
+        List<String> names = sisterInLaws.stream()
+            .map(FamilyMember::getName)
+            .collect(Collectors.toList());
+
+        // hamcrest assertThat is <actual, expected>
+        assertThat(names, Matchers.containsInAnyOrder("Darcy", "Alice"));
+    }
+
+    @Test
     public void testGetBrotherInLaw_NonEmptyList() {
         Optional<FamilyMember> member = repository.findByName("Harry");
         assertTrue(member.isPresent());
@@ -121,6 +138,22 @@ public class InMemoryFamilyMemberRepositoryTest {
             .collect(Collectors.toList());
 
         assertThat(names, Matchers.containsInAnyOrder("Bill", "Charlie", "Percy", "Ronald"));
+    }
+
+    @Test
+    public void testGetBrotherInLaw_NoPartnerRelationship() {
+        Optional<FamilyMember> member = repository.findByName("Charlie");
+        assertTrue(member.isPresent());
+        FamilyMember charlie = member.get();
+
+        List<FamilyMember> brotherInLaws = repository.getBrotherInLaw(charlie);
+        assertFalse(brotherInLaws.isEmpty());
+
+        List<String> names = brotherInLaws.stream()
+            .map(FamilyMember::getName)
+            .collect(Collectors.toList());
+
+        assertThat(names, Matchers.containsInAnyOrder("Harry"));
     }
 
     @Test
