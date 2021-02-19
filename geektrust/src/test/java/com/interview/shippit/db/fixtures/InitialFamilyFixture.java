@@ -57,12 +57,13 @@ public final class InitialFamilyFixture {
         FamilyMember james = repo.createFamilyMember("James", Gender.MALE, ginerva);
         FamilyMember albus = repo.createFamilyMember("Albus", Gender.MALE, ginerva);
         FamilyMember lily = repo.createFamilyMember("Lily", Gender.FEMALE, ginerva);
-        FamilyMember alice = repo.createNoParentFamilyMember("Alice", Gender.FEMALE);
-        alice.setPartner(albus);
-        albus.setPartner(alice);
         FamilyMember darcy = repo.createNoParentFamilyMember("Darcy", Gender.FEMALE);
         darcy.setPartner(james);
         james.setPartner(darcy);
+        FamilyMember alice = repo.createNoParentFamilyMember("Alice", Gender.FEMALE);
+        alice.setPartner(albus);
+        albus.setPartner(alice);
+
 
         FamilyMember william = repo.createFamilyMember("William", Gender.MALE, darcy);
         FamilyMember ron = repo.createFamilyMember("Ron", Gender.MALE, alice);

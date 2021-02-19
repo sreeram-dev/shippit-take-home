@@ -50,7 +50,7 @@ public class CLIApplicationTest {
     public void testSimpleTestCase_PartnerRelationships() {
         CLIApplication.main(new String[]{"src/test/resources/simple_testcase_3.txt"});
         assertEquals("Darcy Alice\n" +
-            "Audrey Helen Flora\n", out.toString());
+            "Flora Audrey Helen\n", out.toString());
     }
 
     @Test
@@ -59,8 +59,8 @@ public class CLIApplicationTest {
 
         assertEquals("CHILD_ADDED\n" +
             "Dominique Minerva\n" +
-            "Dominique Louis Victoire\n" +
-            "Dominique Victoire Minerva\n", out.toString());
+            "Victoire Dominique Louis\n" +
+            "Victoire Dominique Minerva\n", out.toString());
     }
 
     @Test

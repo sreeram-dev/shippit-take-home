@@ -74,10 +74,11 @@ public class CLIApplication {
         controller.addIndividualPartner("Helen", "Female","Ronald");
         controller.addIndividualPartner("Harry", "Male", "Ginerva");
 
+
         // bill family
+        controller.addFamilyMember("Flora", "Victoire", "Female");
         controller.addFamilyMember("Flora", "Dominique", "Female");
         controller.addFamilyMember("Flora", "Louis", "Male");
-        controller.addFamilyMember("Flora", "Victoire", "Female");
         controller.addIndividualPartner("Ted", "Male", "Victoire");
         controller.addFamilyMember("Victoire", "Remus", "Male");
 
@@ -98,6 +99,7 @@ public class CLIApplication {
         controller.addFamilyMember("Ginerva", "Lily", "Female");
         controller.addIndividualPartner("Darcy", "Female", "James");
         controller.addIndividualPartner("Alice", "Female", "Albus");
+
         controller.addFamilyMember("Darcy", "William", "Male");
         controller.addFamilyMember("Alice", "Ron", "Male");
         controller.addFamilyMember("Alice", "Ginny", "Female");

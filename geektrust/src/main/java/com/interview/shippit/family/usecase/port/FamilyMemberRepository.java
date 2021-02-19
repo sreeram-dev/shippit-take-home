@@ -12,29 +12,34 @@ import java.util.Optional;
  */
 public interface FamilyMemberRepository {
 
-    public FamilyMember createFamilyMember(String name, Gender gender, FamilyMember mother);
+    FamilyMember createFamilyMember(String name, Gender gender, FamilyMember mother);
 
-    public FamilyMember createNoParentFamilyMember(String name, Gender gender);
+    FamilyMember createNoParentFamilyMember(String name, Gender gender);
 
-    public Optional<FamilyMember> findByName(String name);
+    Optional<FamilyMember> findByName(String name);
 
-    public List<FamilyMember> getSibling(FamilyMember member) throws PersonNotFoundException;
+    List<FamilyMember> getSibling(FamilyMember member) throws PersonNotFoundException;
 
-    public List<FamilyMember> getPaternalUncle(FamilyMember member);
+    List<FamilyMember> getPaternalUncle(FamilyMember member);
 
-    public List<FamilyMember> getPaternalAunt(FamilyMember member);
+    List<FamilyMember> getPaternalAunt(FamilyMember member);
 
+    List<FamilyMember> getMaternalUncle(FamilyMember member);
 
-    public List<FamilyMember> getMaternalUncle(FamilyMember member);
+    List<FamilyMember> getMaternalAunt(FamilyMember member);
 
-    public List<FamilyMember> getMaternalAunt(FamilyMember member);
+    List<FamilyMember> getSisterInLaw(FamilyMember member);
 
-    public List<FamilyMember> getSisterInLaw(FamilyMember member);
+    List<FamilyMember> getBrotherInLaw(FamilyMember member);
 
+    List<FamilyMember> getSon(FamilyMember member);
 
-    public List<FamilyMember> getBrotherInLaw(FamilyMember member);
+    List<FamilyMember> getDaughter(FamilyMember member);
 
-    public List<FamilyMember> getSon(FamilyMember member);
-
-    public List<FamilyMember> getDaughter(FamilyMember member);
+    /**
+     * Sort the list in the order people were added to database
+     * @param members
+     * @return Sorted list of members based on the order they were added to database
+     */
+    List<FamilyMember> sortOnAddedTime(List<FamilyMember> members);
 }

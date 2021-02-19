@@ -33,6 +33,7 @@ public class FamilyMember {
             this.father.addChild(this);
         }
 
+        // store values in UTC Timezone
         addedAt = LocalDateTime.now(ZoneOffset.UTC);
     }
 

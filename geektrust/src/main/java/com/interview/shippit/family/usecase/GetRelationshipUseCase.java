@@ -6,6 +6,7 @@ import com.interview.shippit.family.usecase.exception.FamilyRelationNotFoundExce
 import com.interview.shippit.family.usecase.port.FamilyMemberRepository;
 import com.interview.shippit.family.usecase.port.GetRelationshipService;
 
+import javax.sound.midi.SysexMessage;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -65,8 +66,6 @@ public class GetRelationshipUseCase implements GetRelationshipService {
 
         // As per the requirements, return relations
         // in order they were added to family tree
-        return result.stream()
-            .sorted(Comparator.comparing(FamilyMember::getAddedAt))
-            .collect(Collectors.toList());
+        return this.repository.sortOnAddedTime(result);
     }
 }

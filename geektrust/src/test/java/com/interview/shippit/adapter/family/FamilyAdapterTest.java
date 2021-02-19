@@ -134,4 +134,53 @@ public class FamilyAdapterTest {
         // assert dominique is shown before minerva
         assertEquals("Dominique Minerva", result);
     }
+
+    @Test
+    public void testGetRelationship_AllSwitchStatements() {
+        FamilyAdapter adapter = new FamilyAdapter(familyService, relationshipService);
+        String result = "";
+
+        result = adapter.getRelationship("Molly", "Paternal-Uncle");
+        assertEquals("Charlie Ronald Bill", result);
+
+        result = adapter.getRelationship("Aster", "Maternal-Uncle");
+        assertEquals("Hugo", result);
+
+        result = adapter.getRelationship("Ginny", "Paternal-Aunt");
+        assertEquals("Lily", result);
+
+        result = adapter.getRelationship("Hugo", "Paternal-Aunt");
+        assertEquals("Ginerva", result);
+
+        result = adapter.getRelationship("Remus", "Maternal-Aunt");
+        assertEquals("Dominique", result);
+
+        // aster has no maternal aunts - rose, her mother, has no sisters.
+        result = adapter.getRelationship("Aster", "Maternal-Aunt");
+        assertEquals("NONE", result);
+
+        result = adapter.getRelationship("Lily", "Sister-In-Law");
+        assertEquals("Darcy Alice", result);
+
+        result = adapter.getRelationship("Ginerva", "Sister-In-Law");
+        assertEquals("Flora Audrey Helen", result);
+
+        result = adapter.getRelationship("Harry", "Brother-In-Law");
+        assertEquals("Percy Charlie Ronald Bill", result);
+
+        result = adapter.getRelationship("Lucy", "Brother-In-Law");
+        assertEquals("NONE", result);
+
+        result = adapter.getRelationship("Ginerva", "Son");
+        assertEquals("James Albus", result);
+
+        result = adapter.getRelationship("Audrey", "Daughter");
+        assertEquals("Molly Lucy", result);
+
+        result = adapter.getRelationship("Lucy", "Siblings");
+        assertEquals("Molly", result);
+
+        result = adapter.getRelationship("James", "Siblings");
+        assertEquals("Albus Lily", result);
+    }
 }

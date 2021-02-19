@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -60,36 +59,5 @@ public class GetRelationshipUseCaseTest {
                 "Alice", "Son");
 
         assertTrue(sons.isEmpty());
-    }
-
-    @Test
-    public void testGetRelationshipToFamilyMember_getSonSuccess(
-        @Mock FamilyMemberRepository repository) {
-
-        FamilyMember alice = new FamilyMember("Alice", Gender.FEMALE);
-        FamilyMember ted = new FamilyMember("Ted", Gender.MALE, alice);
-        FamilyMember ronald = new FamilyMember("Ronald", Gender.MALE, alice);
-        FamilyMember molly = new FamilyMember("Molly", Gender.FEMALE, alice);
-
-        when(repository.findByName("Alice")).thenReturn(Optional.of(alice));
-
-        // test it properly in repository mock tests
-        when(repository.getSon(alice)).thenReturn(alice.getChildren()
-            .stream().filter(FamilyMember::isGenderMale).collect(Collectors.toList()));
-
-        GetRelationshipService service = new GetRelationshipUseCase(repository);
-
-        List<FamilyMember> sons = service.getRelationshipToFamilyMember(
-            "Alice", "Son");
-
-
-        assertTrue(!sons.isEmpty());
-        assertEquals(2, sons.size());
-        FamilyMember son = sons.get(0);
-        assertEquals("Ted", son.getName());
-        assertEquals(alice, son.getMother());
-        FamilyMember otherSon = sons.get(1);
-        assertEquals("Ronald", otherSon.getName());
-        assertEquals(alice, otherSon.getMother());
     }
 }

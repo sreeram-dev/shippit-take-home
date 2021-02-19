@@ -15,10 +15,13 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
 
     private final Map<String, FamilyMember> map = new HashMap<>();
 
+    private final Set<String> order = new LinkedHashSet<>();
+
     @Override
     public FamilyMember createFamilyMember(String name, Gender gender, FamilyMember mother) {
         FamilyMember member = new FamilyMember(name, gender, mother);
         this.map.put(name, member);
+        order.add(name);
         return member;
     }
 
@@ -126,11 +129,9 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
                 .map(FamilyMember::getPartner)
                 .collect(Collectors.toList());
 
-        List<FamilyMember> result = Stream.of(partnerSiblings, siblingPartners)
+        return Stream.of(partnerSiblings, siblingPartners)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
-
-        return result;
     }
 
     @Override
@@ -180,6 +181,7 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
     public FamilyMember createNoParentFamilyMember(String name, Gender gender) {
         FamilyMember member =  new FamilyMember(name, gender);
         map.put(name, member);
+        order.add(name);
         return member;
     }
 
@@ -190,5 +192,20 @@ public class InMemoryFamilyMemberRepository implements FamilyMemberRepository {
 
     public void clearData() {
         map.clear();
+        order.clear();
+    }
+
+    @Override
+    public List<FamilyMember> sortOnAddedTime(List<FamilyMember> members) {
+        List<String> sortedOnTimeOrder = order.stream().collect(Collectors.toList());
+
+        members.sort((o1, o2) -> {
+            String name1 = o1.getName();
+            String name2 = o2.getName();
+
+            return sortedOnTimeOrder.indexOf(name1) - sortedOnTimeOrder.indexOf(name2);
+        });
+
+        return members;
     }
 }
