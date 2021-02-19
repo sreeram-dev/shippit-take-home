@@ -27,12 +27,15 @@ Please run  the following command to run the tests
 
 Tests are located in the `src/test/java/` folder and follow the layout guidelines for gradle/maven projects.
 
-Please use the testing options specified in https://docs.gradle.org/current/userguide/java_testing.html#full_qualified_name_pattern
-to run individual tests
+Please use the testing options specified in https://docs.gradle.org/current/userguide/java_testing.html#full_qualified_name_pattern to run individual tests.
+
+An example to run Individual Test - <br/>
+`./gradlew test --tests "com.interview.shippit.cli.CLIApplicationTest.testSimpleTestCase_PersonNotFound"`
+
 
 ## Project Structure
 The project follows the clean architecture paradigm - <br/>
-1. Domain and Usecases (Interactors) are listed in `com.interview.shippit.family` package
-2. Adapters (Interactor Adapter) implement interfaces as defined in usecases are listed in `com.interview.shippit.family`.
+1. Domain and Usecases (Interactors) are listed in `com.interview.shippit.family` package. They implement the business rules and contain domain knowledge.
+2. Adapters (Interactor Adapter) implement interfaces as defined in usecases to provide support functions for business rule execution. They are listed in `com.interview.shippit.family`.
 3. HashMap based DB persists data during application run, implements the repository interface defined in the usecases. Package is `com.interview.shippit.db`
-4. CLI Functionality plugs into the adapter and Application delegates calls to the controller. Package is `com.interview.shippit.cli`.
+4. CLI Functionality plugs into the adapter and Application delegates calls to the controller. Controller returns data in rest, json, xml format required by the user. Package is `com.interview.shippit.cli`.
