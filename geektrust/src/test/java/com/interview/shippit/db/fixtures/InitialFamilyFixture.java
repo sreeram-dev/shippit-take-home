@@ -8,7 +8,7 @@ public final class InitialFamilyFixture {
 
     public static void applyFixture(FamilyMemberRepository repo) {
         FamilyMember king = repo.createNoParentFamilyMember("Arthur", Gender.MALE);
-        FamilyMember queen = repo.createNoParentFamilyMember("Margaret", Gender.FEMALE);
+        FamilyMember queen = repo.createNoParentFamilyMember("Margret", Gender.FEMALE);
         king.setPartner(queen);
         queen.setPartner(king);
 

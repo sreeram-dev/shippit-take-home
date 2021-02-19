@@ -80,6 +80,4 @@ public class AddFamilyMemberUseCase implements AddFamilyService {
 
         return member;
     }
-
-
 }

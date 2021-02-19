@@ -6,8 +6,10 @@ import com.interview.shippit.family.usecase.exception.FamilyRelationNotFoundExce
 import com.interview.shippit.family.usecase.port.FamilyMemberRepository;
 import com.interview.shippit.family.usecase.port.GetRelationshipService;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class GetRelationshipUseCase implements GetRelationshipService {
 
@@ -27,19 +29,44 @@ public class GetRelationshipUseCase implements GetRelationshipService {
         }
 
         FamilyMember member = optional.get();
+        List<FamilyMember> result;
 
         switch (relationship) {
-            case "Paternal-Uncle": return this.repository.getPaternalUncle(member);
-            case "Maternal-Uncle": return this.repository.getMaternalUncle(member);
-            case "Paternal-Aunt": return this.repository.getPaternalAunt(member);
-            case "Maternal-Aunt": return this.repository.getMaternalAunt(member);
-            case "Sister-in-Law": return this.repository.getSisterInLaw(member);
-            case "Brother-in-Law": return this.repository.getBrotherInLaw(member);
-            case "Siblings": return this.repository.getSibling(member);
-            case "Son": return this.repository.getSon(member);
-            case "Daughter": return this.repository.getDaughter(member);
-            default: throw new FamilyRelationNotFoundException();
+            case "Paternal-Uncle":
+                result = this.repository.getPaternalUncle(member);
+                break;
+            case "Maternal-Uncle":
+                result = this.repository.getMaternalUncle(member);
+                break;
+            case "Paternal-Aunt":
+                result = this.repository.getPaternalAunt(member);
+                break;
+            case "Maternal-Aunt":
+                result = this.repository.getMaternalAunt(member);
+                break;
+            case "Sister-in-Law":
+                result = this.repository.getSisterInLaw(member);
+                break;
+            case "Brother-in-Law":
+                result = this.repository.getBrotherInLaw(member);
+                break;
+            case "Siblings":
+                result = this.repository.getSibling(member);
+                break;
+            case "Son":
+                result = this.repository.getSon(member);
+                break;
+            case "Daughter":
+                result = this.repository.getDaughter(member);
+                break;
+            default:
+                throw new FamilyRelationNotFoundException();
         }
 
+        // As per the requirements, return relations
+        // in order they were added to family tree
+        return result.stream()
+            .sorted(Comparator.comparing(FamilyMember::getAddedAt))
+            .collect(Collectors.toList());
     }
 }

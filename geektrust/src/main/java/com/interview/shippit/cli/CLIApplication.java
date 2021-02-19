@@ -28,6 +28,7 @@ public class CLIApplication {
             return;
         }
 
+        repository.clearData();
         loadInitialData(controller);
 
         try (Stream<String> stream = Files.lines(Paths.get(args[0]))){
@@ -42,9 +43,7 @@ public class CLIApplication {
     }
 
     private static void processLine(String line) {
-        //System.out.println("Command: " + line);
         String[] command = line.split(" ");
-        //Arrays.stream(command).forEach(System.out::println);
 
         if (command.length < 2) {
             throw new IllegalArgumentException("Invalid File");
@@ -64,14 +63,14 @@ public class CLIApplication {
     public static void loadInitialData(CLIFamilyController controller) {
 
         controller.createNoParentFamilyMember("Arthur", "Male");
-        controller.addIndividualPartner("Margaret", "Female", "Arthur");
+        controller.addIndividualPartner("Margret", "Female", "Arthur");
 
         // immediate members
-        controller.addFamilyMember("Margaret", "Percy", "Male");
-        controller.addFamilyMember("Margaret", "Charlie", "Male");
-        controller.addFamilyMember("Margaret", "Ronald", "Male");
-        controller.addFamilyMember("Margaret", "Bill", "Male");
-        controller.addFamilyMember("Margaret", "Ginerva", "Female");
+        controller.addFamilyMember("Margret", "Percy", "Male");
+        controller.addFamilyMember("Margret", "Charlie", "Male");
+        controller.addFamilyMember("Margret", "Ronald", "Male");
+        controller.addFamilyMember("Margret", "Bill", "Male");
+        controller.addFamilyMember("Margret", "Ginerva", "Female");
         controller.addIndividualPartner("Flora", "Female","Bill");
         controller.addIndividualPartner("Audrey","Female", "Percy");
         controller.addIndividualPartner("Helen", "Female","Ronald");

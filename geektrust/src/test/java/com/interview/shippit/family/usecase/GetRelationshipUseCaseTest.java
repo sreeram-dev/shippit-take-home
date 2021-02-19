@@ -22,7 +22,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class GetRelationshipUseCaseTest {
 
-
     @Test
     public void testGetRelationshipToFamilyMember_PersonNotFoundException(
         @Mock FamilyMemberRepository repository) {
@@ -69,13 +68,14 @@ public class GetRelationshipUseCaseTest {
 
         FamilyMember alice = new FamilyMember("Alice", Gender.FEMALE);
         FamilyMember ted = new FamilyMember("Ted", Gender.MALE, alice);
+        FamilyMember ronald = new FamilyMember("Ronald", Gender.MALE, alice);
         FamilyMember molly = new FamilyMember("Molly", Gender.FEMALE, alice);
 
         when(repository.findByName("Alice")).thenReturn(Optional.of(alice));
 
         // test it properly in repository mock tests
         when(repository.getSon(alice)).thenReturn(alice.getChildren()
-            .stream().filter(d -> d.isGenderMale()).collect(Collectors.toList()));
+            .stream().filter(FamilyMember::isGenderMale).collect(Collectors.toList()));
 
         GetRelationshipService service = new GetRelationshipUseCase(repository);
 
@@ -84,9 +84,12 @@ public class GetRelationshipUseCaseTest {
 
 
         assertTrue(!sons.isEmpty());
-        assertEquals(1, sons.size());
+        assertEquals(2, sons.size());
         FamilyMember son = sons.get(0);
         assertEquals("Ted", son.getName());
         assertEquals(alice, son.getMother());
+        FamilyMember otherSon = sons.get(1);
+        assertEquals("Ronald", otherSon.getName());
+        assertEquals(alice, otherSon.getMother());
     }
 }

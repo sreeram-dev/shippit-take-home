@@ -2,6 +2,9 @@ package com.interview.shippit.family.entity;
 
 import com.interview.shippit.family.entity.enums.Gender;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +19,8 @@ public class FamilyMember {
     private FamilyMember mother;
     private FamilyMember partner;
 
+    private final LocalDateTime addedAt;
+
     public FamilyMember(final String name,
                         final Gender gender,
                         final FamilyMember mother) {
@@ -27,6 +32,8 @@ public class FamilyMember {
         if (Optional.ofNullable(this.father).isPresent()) {
             this.father.addChild(this);
         }
+
+        addedAt = LocalDateTime.now(ZoneOffset.UTC);
     }
 
     public FamilyMember(final String name, final Gender gender) {
@@ -34,6 +41,8 @@ public class FamilyMember {
         this.gender = gender;
         this.father = null;
         this.mother = null;
+
+        addedAt = LocalDateTime.now(ZoneOffset.UTC);
     }
 
     public List<FamilyMember> getChildren() {
@@ -84,4 +93,6 @@ public class FamilyMember {
     public Boolean hasPartner() {
         return this.partner != null;
     }
+
+    public LocalDateTime getAddedAt() { return this.addedAt; }
 }

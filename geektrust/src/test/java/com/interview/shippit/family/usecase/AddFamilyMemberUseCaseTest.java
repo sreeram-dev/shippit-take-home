@@ -47,20 +47,20 @@ public class AddFamilyMemberUseCaseTest {
     public void testCreateFamilyMember_childAddedSuccess(
         @Mock FamilyMemberRepository repository) {
 
-        FamilyMember margaret = new FamilyMember("Margaret", Gender.FEMALE);
+        FamilyMember margret = new FamilyMember("Margret", Gender.FEMALE);
 
-        when(repository.findByName("Margaret"))
-            .thenReturn(Optional.of(margaret));
+        when(repository.findByName("Margret"))
+            .thenReturn(Optional.of(margret));
 
-        when(repository.createFamilyMember("Luna", Gender.FEMALE, margaret))
-            .thenReturn(new FamilyMember("Luna", Gender.FEMALE, margaret));
+        when(repository.createFamilyMember("Luna", Gender.FEMALE, margret))
+            .thenReturn(new FamilyMember("Luna", Gender.FEMALE, margret));
 
         AddFamilyService service = new AddFamilyMemberUseCase(repository);
-        FamilyMember luna = service.create("Luna", "Female", "Margaret");
+        FamilyMember luna = service.create("Luna", "Female", "Margret");
 
         assertNotNull(luna);
         assertEquals("Luna", luna.getName());
-        assertEquals(margaret.getName(), luna.getMother().getName());
+        assertEquals(margret.getName(), luna.getMother().getName());
     }
 
     @Test

@@ -9,6 +9,7 @@ import com.interview.shippit.family.usecase.port.AddFamilyService;
 import com.interview.shippit.family.usecase.port.GetRelationshipService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Output port for the familymember usecases
@@ -46,8 +47,7 @@ public class FamilyAdapter {
 
             return members.stream()
                     .map(FamilyMember::getName)
-                    .reduce(" ", String::concat)
-                    .trim();
+                    .collect(Collectors.joining(" "));
 
         } catch (PersonNotFoundException ex) {
             return ex.getMessage();
